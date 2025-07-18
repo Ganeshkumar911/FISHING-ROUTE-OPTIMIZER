@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather & Marine Conditions Center - Fishing Route Navigator</title>
+    <link rel="stylesheet" href="../css/main.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script type="module" src="https://static.rocket.new/rocket-web.js?_cfg=https%3A%2F%2Ffishingro2722back.builtwithrocket.new&_be=https%3A%2F%2Fapplication.rocket.new&_v=0.1.5"></script>
+</head>
+<body class="bg-background font-inter">
+    <!-- Navigation Header -->
+    <nav class="bg-white shadow-card border-b border-slate-200 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <svg class="h-8 w-8 text-primary" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                            <circle cx="12" cy="8" r="2" fill="currentColor"/>
+                            <path d="M12 10c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/>
+                        </svg>
+                    </div>
+                    <div class="ml-3">
+                        <h1 class="text-xl font-bold text-primary">Fishing Route Navigator</h1>
+                    </div>
+                </div>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="interactive_map_dashboard_homepage.html" class="text-slate-600 hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition-maritime">Map Dashboard</a>
+                        <a href="route_planner_optimization.html" class="text-slate-600 hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition-maritime">Route Planner</a>
+                        <a href="weather_marine_conditions_center.html" class="bg-primary-100 text-primary px-3 py-2 rounded-md text-sm font-medium">Weather</a>
+                        <a href="community_feed_social_platform.html" class="text-slate-600 hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition-maritime">Community</a>
+                        <a href="equipment_hub_gear_optimizer.html" class="text-slate-600 hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition-maritime">Equipment</a>
+                        <a href="learning_center_fishing_education.html" class="text-slate-600 hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition-maritime">Learning</a>
+                    </div>
+                </div>
+
+                <!-- CTA Button -->
+                <div class="hidden md:block">
+                    <a href="route_planner_optimization.html" class="maritime-button-primary">Start Planning</a>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button type="button" class="text-slate-600 hover:text-primary p-2" id="mobile-menu-button">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Menu -->
+        <div class="md:hidden hidden" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white border-t border-slate-200">
+                <a href="interactive_map_dashboard_homepage.html" class="text-slate-600 hover:text-primary block px-3 py-2 rounded-md text-base font-medium">Map Dashboard</a>
+                <a href="route_planner_optimization.html" class="text-slate-600 hover:text-primary block px-3 py-2 rounded-md text-base font-medium">Route Planner</a>
+                <a href="weather_marine_conditions_center.html" class="bg-primary-100 text-primary block px-3 py-2 rounded-md text-base font-medium">Weather</a>
+                <a href="community_feed_social_platform.html" class="text-slate-600 hover:text-primary block px-3 py-2 rounded-md text-base font-medium">Community</a>
+                <a href="equipment_hub_gear_optimizer.html" class="text-slate-600 hover:text-primary block px-3 py-2 rounded-md text-base font-medium">Equipment</a>
+                <a href="learning_center_fishing_education.html" class="text-slate-600 hover:text-primary block px-3 py-2 rounded-md text-base font-medium">Learning</a>
+                <div class="px-3 py-2">
+                    <a href="route_planner_optimization.html" class="maritime-button-primary w-full text-center">Start Planning</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="relative">
+        <!-- Hero Section -->
+        <section class="bg-gradient-to-br from-primary-50 to-secondary-50 py-12">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-8">
+                    <h1 class="text-4xl font-bold text-slate-900 mb-4">Weather & Marine Conditions Center</h1>
+                    <p class="text-lg text-slate-600 max-w-3xl mx-auto">Comprehensive marine forecasting tailored for fishing success with real-time conditions and predictive analytics</p>
+                </div>
+
+                <!-- Current Conditions Overview -->
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+                    <div class="maritime-card p-6 text-center">
+                        <div class="flex items-center justify-center mb-3">
+                            <svg class="h-8 w-8 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 4V2a1 1 0 011-1h8a1 1 0 011 1v2h4a1 1 0 011 1v2a1 1 0 01-1 1h-1v12a2 2 0 01-2 2H6a2 2 2 0 01-2-2V8H3a1 1 0 01-1-1V5a1 1 0 011-1h4z"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-lg font-semibold text-slate-900 mb-2">Wind Speed</h3>
+                        <p class="text-2xl font-bold text-primary mb-1">12 mph</p>
+                        <p class="text-sm text-slate-600">NE Direction</p>
+                        <div class="mt-2">
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-success-100 text-success-800">Excellent</span>
+                        </div>
+                    </div>
+
+                    <div class="maritime-card p-6 text-center">
+                        <div class="flex items-center justify-center mb-3">
+                            <svg class="h-8 w-8 text-secondary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-lg font-semibold text-slate-900 mb-2">Wave Height</h3>
+                        <p class="text-2xl font-bold text-secondary mb-1">2-3 ft</p>
+                        <p class="text-sm text-slate-600">Moderate Swell</p>
+                        <div class="mt-2">
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-warning-100 text-warning-800">Good</span>
+                        </div>
+                    </div>
+
+                    <div class="maritime-card p-6 text-center">
+                        <div class="flex items-center justify-center mb-3">
+                            <svg class="h-8 w-8 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-lg font-semibold text-slate-900 mb-2">Water Temp</h3>
+                        <p class="text-2xl font-bold text-accent mb-1">68°F</p>
+                        <p class="text-sm text-slate-600">Optimal Range</p>
+                        <div class="mt-2">
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-success-100 text-success-800">Perfect</span>
+                        </div>
+                    </div>
+
+                    <div class="maritime-card p-6 text-center">
+                        <div class="flex items-center justify-center mb-3">
+                            <svg class="h-8 w-8 text-success-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-lg font-semibold text-slate-900 mb-2">Visibility</h3>
+                        <p class="text-2xl font-bold text-success-600 mb-1">8 miles</p>
+                        <p class="text-sm text-slate-600">Clear Conditions</p>
+                        <div class="mt-2">
+                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-success-100 text-success-800">Excellent</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive Weather Map -->
+        <section class="bg-white py-8">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex flex-col lg:flex-row gap-8">
+                    <!-- Map Container -->
+                    <div class="lg:w-2/3">
+                        <div class="maritime-card p-6">
+                            <div class="flex items-center justify-between mb-6">
+                                <h2 class="text-2xl font-bold text-slate-900">Interactive Weather Map</h2>
+                                <div class="flex items-center space-x-2">
+                                    <button class="maritime-button-secondary px-4 py-2 text-sm" id="refresh-map">
+                                        <svg class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+                                        </svg>
+                                        Refresh
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Map Overlay Controls -->
+                            <div class="mb-4">
+                                <div class="flex flex-wrap gap-2">
+                                    <button class="px-3 py-2 text-sm bg-primary-100 text-primary rounded-md font-medium" id="wind-overlay">Wind Speed</button>
+                                    <button class="px-3 py-2 text-sm text-slate-600 hover:bg-slate-100 rounded-md transition-maritime" id="wave-overlay">Wave Height</button>
+                                    <button class="px-3 py-2 text-sm text-slate-600 hover:bg-slate-100 rounded-md transition-maritime" id="temp-overlay">Water Temperature</button>
+                                    <button class="px-3 py-2 text-sm text-slate-600 hover:bg-slate-100 rounded-md transition-maritime" id="pressure-overlay">Barometric Pressure</button>
+                                    <button class="px-3 py-2 text-sm text-slate-600 hover:bg-slate-100 rounded-md transition-maritime" id="current-overlay">Ocean Currents</button>
+                                </div>
+                            </div>
+
+                            <!-- Weather Map -->
+                            <div id="weather-map" class="w-full h-96 rounded-lg border border-slate-200"></div>
+
+                            <!-- Map Legend -->
+                            <div class="mt-4 p-4 bg-slate-50 rounded-lg">
+                                <h3 class="text-sm font-semibold text-slate-700 mb-3">Wind Speed Legend</h3>
+                                <div class="flex flex-wrap gap-4">
+                                    <div class="flex items-center space-x-2">
+                                        <div class="w-4 h-4 bg-success-500 rounded"></div>
+                                        <span class="text-sm text-slate-600">0-10 mph (Calm)</span>
+                                    </div>
+                                    <div class="flex items-center space-x-2">
+                                        <div class="w-4 h-4 bg-warning-500 rounded"></div>
+                                        <span class="text-sm text-slate-600">10-20 mph (Moderate)</span>
+                                    </div>
+                                    <div class="flex items-center space-x-2">
+                                        <div class="w-4 h-4 bg-accent-500 rounded"></div>
+                                        <span class="text-sm text-slate-600">20-30 mph (Strong)</span>
+                                    </div>
+                                    <div class="flex items-center space-x-2">
+                                        <div class="w-4 h-4 bg-error-500 rounded"></div>
+                                        <span class="text-sm text-slate-600">30+ mph (Dangerous)</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Weather Sidebar -->
+                    <div class="lg:w-1/3 space-y-6">
+                        <!-- Safety Alerts -->
+                        <div class="maritime-card p-6">
+                            <h3 class="text-lg font-semibold text-slate-900 mb-4">Safety Alerts</h3>
+                            <div class="space-y-3">
+                                <div class="flex items-start space-x-3 p-3 bg-success-50 rounded-lg border border-success-200">
+                                    <svg class="h-5 w-5 text-success-600 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                                    </svg>
+                                    <div>
+                                        <p class="text-sm font-medium text-success-800">All Clear</p>
+                                        <p class="text-xs text-success-600">No active weather warnings</p>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-start space-x-3 p-3 bg-warning-50 rounded-lg border border-warning-200">
+                                    <svg class="h-5 w-5 text-warning-600 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/>
+                                    </svg>
+                                    <div>
+                                        <p class="text-sm font-medium text-warning-800">Small Craft Advisory</p>
+                                        <p class="text-xs text-warning-600">Expected tomorrow 2-6 PM</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Optimal Fishing Times -->
+                        <div class="maritime-card p-6">
+                            <h3 class="text-lg font-semibold text-slate-900 mb-4">Optimal Fishing Times</h3>
+                            <div class="space-y-4">
+                                <div class="flex items-center justify-between p-3 bg-success-50 rounded-lg">
+                                    <div>
+                                        <p class="text-sm font-medium text-slate-900">Major Period</p>
+                                        <p class="text-xs text-slate-600">Peak feeding activity</p>
+                                    </div>
+                                    <div class="text-right">
+                                        <p class="text-sm font-bold text-success-700">6:15 AM - 8:15 AM</p>
+                                        <p class="text-xs text-success-600">95% Activity</p>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-center justify-between p-3 bg-warning-50 rounded-lg">
+                                    <div>
+                                        <p class="text-sm font-medium text-slate-900">Minor Period</p>
+                                        <p class="text-xs text-slate-600">Moderate activity</p>
+                                    </div>
+                                    <div class="text-right">
+                                        <p class="text-sm font-bold text-warning-700">12:30 PM - 1:30 PM</p>
+                                        <p class="text-xs text-warning-600">70% Activity</p>
+                                    </div>
+                                </div>
+
+                                <div class="flex items-center justify-between p-3 bg-success-50 rounded-lg">
+                                    <div>
+                                        <p class="text-sm font-medium text-slate-900">Major Period</p>
+                                        <p class="text-xs text-slate-600">Peak feeding activity</p>
+                                    </div>
+                                    <div class="text-right">
+                                        <p class="text-sm font-bold text-success-700">6:45 PM - 8:45 PM</p>
+                                        <p class="text-xs text-success-600">92% Activity</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Tide Information -->
+                        <div class="maritime-card p-6">
+                            <h3 class="text-lg font-semibold text-slate-900 mb-4">Tide Information</h3>
+                            <div class="space-y-3">
+                                <div class="flex justify-between items-center p-2 bg-primary-50 rounded">
+                                    <span class="text-sm font-medium text-slate-700">High Tide</span>
+                                    <span class="text-sm font-bold text-primary">6:24 AM</span>
+                                </div>
+                                <div class="flex justify-between items-center p-2 bg-slate-50 rounded">
+                                    <span class="text-sm font-medium text-slate-700">Low Tide</span>
+                                    <span class="text-sm font-bold text-slate-900">12:18 PM</span>
+                                </div>
+                                <div class="flex justify-between items-center p-2 bg-success-50 rounded">
+                                    <span class="text-sm font-medium text-slate-700">Next High</span>
+                                    <span class="text-sm font-bold text-success-700">6:45 PM</span>
+                                </div>
+                                <div class="flex justify-between items-center p-2 bg-slate-50 rounded">
+                                    <span class="text-sm font-medium text-slate-700">Next Low</span>
+                                    <span class="text-sm font-bold text-slate-900">12:52 AM</span>
+                                </div>
+                            </div>
+
+                            <!-- Tide Chart Placeholder -->
+                            <div class="mt-4 h-32 bg-gradient-to-r from-primary-100 to-secondary-100 rounded-lg flex items-center justify-center">
+                                <svg class="h-16 w-16 text-primary-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                                </svg>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 7-Day Forecast -->
+        <section class="bg-primary-50 py-12">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-8">
+                    <h2 class="text-3xl font-bold text-slate-900 mb-4">7-Day Marine Forecast</h2>
+                    <p class="text-lg text-slate-600">Extended forecast with fishing success predictions</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-7 gap-4">
+                    <!-- Day 1 - Today -->
+                    <div class="maritime-card p-4 text-center bg-success-50 border-success-200">
+                        <h3 class="font-semibold text-slate-900 mb-2">Today</h3>
+                        <img src="https://images.unsplash.com/photo-1504608524841-42fe6f032b4b?w=64&h=64&fit=crop&crop=center" alt="Sunny" class="w-12 h-12 mx-auto rounded-lg mb-2" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;" />
+                        <p class="text-lg font-bold text-slate-900">72°F</p>
+                        <p class="text-sm text-slate-600 mb-2">Wind: 12 mph</p>
+                        <p class="text-sm text-slate-600 mb-2">Waves: 2-3 ft</p>
+                        <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-success-100 text-success-800">Excellent</span>
+                    </div>
+
+                    <!-- Day 2 - Tomorrow -->
+                    <div class="maritime-card p-4 text-center">
+                        <h3 class="font-semibold text-slate-900 mb-2">Tomorrow</h3>
+                        <img src="https://images.pexels.com/photos/1118873/pexels-photo-1118873.jpeg?w=64&h=64&fit=crop&crop=center" alt="Partly Cloudy" class="w-12 h-12 mx-auto rounded-lg mb-2" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;" />
+                        <p class="text-lg font-bold text-slate-900">69°F</p>
+                        <p class="text-sm text-slate-600 mb-2">Wind: 15 mph</p>
+                        <p class="text-sm text-slate-600 mb-2">Waves: 3-4 ft</p>
+                        <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-warning-100 text-warning-800">Good</span>
+                    </div>
+
+                    <!-- Day 3 - Wednesday -->
+                    <div class="maritime-card p-4 text-center">
+                        <h3 class="font-semibold text-slate-900 mb-2">Wed</h3>
+                        <img src="https://images.pixabay.com/photo/2016/04/12/21/17/storm-1325274_1280.jpg?w=64&h=64&fit=crop&crop=center" alt="Stormy" class="w-12 h-12 mx-auto rounded-lg mb-2" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;" />
+                        <p class="text-lg font-bold text-slate-900">65°F</p>
+                        <p class="text-sm text-slate-600 mb-2">Wind: 25 mph</p>
+                        <p class="text-sm text-slate-600 mb-2">Waves: 5-7 ft</p>
+                        <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-error-100 text-error-800">Poor</span>
+                    </div>
+
+                    <!-- Day 4 - Thursday -->
+                    <div class="maritime-card p-4 text-center">
+                        <h3 class="font-semibold text-slate-900 mb-2">Thu</h3>
+                        <img src="https://images.unsplash.com/photo-1534274988757-a28bf1a57c17?w=64&h=64&fit=crop&crop=center" alt="Cloudy" class="w-12 h-12 mx-auto rounded-lg mb-2" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;" />
+                        <p class="text-lg font-bold text-slate-900">67°F</p>
+                        <p class="text-sm text-slate-600 mb-2">Wind: 18 mph</p>
+                        <p class="text-sm text-slate-600 mb-2">Waves: 3-4 ft</p>
+                        <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-warning-100 text-warning-800">Fair</span>
+                    </div>
+
+                    <!-- Day 5 - Friday -->
+                    <div class="maritime-card p-4 text-center">
+                        <h3 class="font-semibold text-slate-900 mb-2">Fri</h3>
+                        <img src="https://images.pexels.com/photos/1431822/pexels-photo-1431822.jpeg?w=64&h=64&fit=crop&crop=center" alt="Sunny" class="w-12 h-12 mx-auto rounded-lg mb-2" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;" />
+                        <p class="text-lg font-bold text-slate-900">71°F</p>
+                        <p class="text-sm text-slate-600 mb-2">Wind: 10 mph</p>
+                        <p class="text-sm text-slate-600 mb-2">Waves: 1-2 ft</p>
+                        <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-success-100 text-success-800">Excellent</span>
+                    </div>
+
+                    <!-- Day 6 - Saturday -->
+                    <div class="maritime-card p-4 text-center">
+                        <h3 class="font-semibold text-slate-900 mb-2">Sat</h3>
+                        <img src="https://images.pixabay.com/photo/2013/02/21/19/06/drink-84533_1280.jpg?w=64&h=64&fit=crop&crop=center" alt="Clear" class="w-12 h-12 mx-auto rounded-lg mb-2" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;" />
+                        <p class="text-lg font-bold text-slate-900">74°F</p>
+                        <p class="text-sm text-slate-600 mb-2">Wind: 8 mph</p>
+                        <p class="text-sm text-slate-600 mb-2">Waves: 1-2 ft</p>
+                        <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-success-100 text-success-800">Perfect</span>
+                    </div>
+
+                    <!-- Day 7 - Sunday -->
+                    <div class="maritime-card p-4 text-center">
+                        <h3 class="font-semibold text-slate-900 mb-2">Sun</h3>
+                        <img src="https://images.unsplash.com/photo-1515694346937-94d85e41e6f0?w=64&h=64&fit=crop&crop=center" alt="Rainy" class="w-12 h-12 mx-auto rounded-lg mb-2" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;" />
+                        <p class="text-lg font-bold text-slate-900">66°F</p>
+                        <p class="text-sm text-slate-600 mb-2">Wind: 20 mph</p>
+                        <p class="text-sm text-slate-600 mb-2">Waves: 4-5 ft</p>
+                        <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-accent-100 text-accent-800">Fair</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Species Activity Predictions -->
+        <section class="bg-white py-12">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-8">
+                    <h2 class="text-3xl font-bold text-slate-900 mb-4">Species Activity Predictions</h2>
+                    <p class="text-lg text-slate-600">Weather-based fish behavior forecasts</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Bass Activity -->
+                    <div class="maritime-card p-6">
+                        <div class="flex items-center space-x-3 mb-4">
+                            <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=48&h=48&fit=crop&crop=center" alt="Bass" class="w-12 h-12 rounded-full object-cover" />
+                            <div>
+                                <h3 class="text-lg font-semibold text-slate-900">Largemouth Bass</h3>
+                                <p class="text-sm text-slate-600">Optimal Conditions</p>
+                            </div>
+                        </div>
+                        <div class="space-y-3">
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-slate-600">Activity Level</span>
+                                <span class="text-sm font-bold text-success-700">High (85%)</span>
+                            </div>
+                            <div class="w-full bg-slate-200 rounded-full h-2">
+                                <div class="bg-success-500 h-2 rounded-full" style="width: 85%"></div>
+                            </div>
+                            <div class="text-xs text-slate-500">
+                                <p>• Water temp ideal for feeding</p>
+                                <p>• Low pressure system approaching</p>
+                                <p>• Optimal wind conditions</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Trout Activity -->
+                    <div class="maritime-card p-6">
+                        <div class="flex items-center space-x-3 mb-4">
+                            <img src="https://images.pexels.com/photos/1123982/pexels-photo-1123982.jpeg?w=48&h=48&fit=crop&crop=center" alt="Trout" class="w-12 h-12 rounded-full object-cover" />
+                            <div>
+                                <h3 class="text-lg font-semibold text-slate-900">Rainbow Trout</h3>
+                                <p class="text-sm text-slate-600">Good Conditions</p>
+                            </div>
+                        </div>
+                        <div class="space-y-3">
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-slate-600">Activity Level</span>
+                                <span class="text-sm font-bold text-warning-700">Medium (72%)</span>
+                            </div>
+                            <div class="w-full bg-slate-200 rounded-full h-2">
+                                <div class="bg-warning-500 h-2 rounded-full" style="width: 72%"></div>
+                            </div>
+                            <div class="text-xs text-slate-500">
+                                <p>• Water temp slightly warm</p>
+                                <p>• Moderate wind conditions</p>
+                                <p>• Good oxygen levels</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Salmon Activity -->
+                    <div class="maritime-card p-6">
+                        <div class="flex items-center space-x-3 mb-4">
+                            <img src="https://images.pixabay.com/photo/2016/10/22/20/34/salmon-1761404_1280.jpg?w=48&h=48&fit=crop&crop=center" alt="Salmon" class="w-12 h-12 rounded-full object-cover" />
+                            <div>
+                                <h3 class="text-lg font-semibold text-slate-900">Chinook Salmon</h3>
+                                <p class="text-sm text-slate-600">Excellent Conditions</p>
+                            </div>
+                        </div>
+                        <div class="space-y-3">
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-slate-600">Activity Level</span>
+                                <span class="text-sm font-bold text-success-700">Very High (91%)</span>
+                            </div>
+                            <div class="w-full bg-slate-200 rounded-full h-2">
+                                <div class="bg-success-500 h-2 rounded-full" style="width: 91%"></div>
+                            </div>
+                            <div class="text-xs text-slate-500">
+                                <p>• Perfect water temperature</p>
+                                <p>• Strong current activity</p>
+                                <p>• Optimal feeding conditions</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Historical Weather Correlation -->
+        <section class="bg-slate-50 py-12">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-8">
+                    <h2 class="text-3xl font-bold text-slate-900 mb-4">Weather Pattern Analysis</h2>
+                    <p class="text-lg text-slate-600">Historical correlations between weather and fishing success</p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <!-- Success Rate Chart -->
+                    <div class="maritime-card p-6">
+                        <h3 class="text-xl font-semibold text-slate-900 mb-4">Success Rate by Weather Conditions</h3>
+                        <div class="h-64 bg-gradient-to-br from-primary-100 to-secondary-100 rounded-lg flex items-center justify-center">
+                            <svg class="h-32 w-32 text-primary-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                            </svg>
+                        </div>
+                        <div class="mt-4 space-y-2">
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-slate-600">Overcast + Light Wind</span>
+                                <span class="text-sm font-bold text-success-700">89% Success</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-slate-600">Sunny + Moderate Wind</span>
+                                <span class="text-sm font-bold text-warning-700">72% Success</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm text-slate-600">Stormy Conditions</span>
+                                <span class="text-sm font-bold text-error-700">34% Success</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Best Fishing Conditions -->
+                    <div class="maritime-card p-6">
+                        <h3 class="text-xl font-semibold text-slate-900 mb-4">Optimal Conditions Archive</h3>
+                        <div class="space-y-4">
+                            <div class="p-4 bg-success-50 rounded-lg border border-success-200">
+                                <div class="flex justify-between items-start mb-2">
+                                    <h4 class="font-semibold text-success-800">Perfect Storm Pattern</h4>
+                                    <span class="text-xs text-success-600">July 10, 2025</span>
+                                </div>
+                                <div class="text-sm text-success-700 space-y-1">
+                                    <p>• Barometric pressure: 29.85 inHg (falling)</p>
+                                    <p>• Wind: 8-12 mph from NE</p>
+                                    <p>• Water temp: 68-70°F</p>
+                                    <p>• Success rate: 94%</p>
+                                </div>
+                            </div>
+
+                            <div class="p-4 bg-warning-50 rounded-lg border border-warning-200">
+                                <div class="flex justify-between items-start mb-2">
+                                    <h4 class="font-semibold text-warning-800">Good Conditions</h4>
+                                    <span class="text-xs text-warning-600">July 8, 2025</span>
+                                </div>
+                                <div class="text-sm text-warning-700 space-y-1">
+                                    <p>• Barometric pressure: 30.12 inHg (stable)</p>
+                                    <p>• Wind: 15-18 mph from SW</p>
+                                    <p>• Water temp: 72-74°F</p>
+                                    <p>• Success rate: 76%</p>
+                                </div>
+                            </div>
+
+                            <div class="p-4 bg-primary-50 rounded-lg border border-primary-200">
+                                <div class="flex justify-between items-start mb-2">
+                                    <h4 class="font-semibold text-primary-800">Trending Pattern</h4>
+                                    <span class="text-xs text-primary-600">This Week</span>
+                                </div>
+                                <div class="text-sm text-primary-700">
+                                    <p>Similar conditions expected Friday-Saturday with 85%+ success probability</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-white py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <p class="text-slate-400">© 2025 Fishing Route Navigator. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize weather map
+        let weatherMap;
+
+        function initWeatherMap() {
+            // Initialize the weather map
+            weatherMap = L.map('weather-map').setView([37.7749, -122.4194], 8);
+
+            // Add base tile layer
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '© OpenStreetMap contributors'
+            }).addTo(weatherMap);
+
+            // Add sample weather data points
+            const weatherData = [
+                { lat: 37.8749, lng: -122.5194, windSpeed: 8, temp: 68, condition: 'calm' },
+                { lat: 37.6749, lng: -122.3194, windSpeed: 15, temp: 70, condition: 'moderate' },
+                { lat: 37.7249, lng: -122.4694, windSpeed: 22, temp: 66, condition: 'strong' },
+                { lat: 37.8249, lng: -122.3694, windSpeed: 12, temp: 69, condition: 'moderate' }
+            ];
+
+            // Add weather markers
+            weatherData.forEach(point => {
+                let color = '#10b981'; // green for calm
+                if (point.windSpeed >= 20) color = '#f59e0b'; // yellow for moderate
+                if (point.windSpeed >= 30) color = '#ef4444'; // red for strong
+
+                const marker = L.circleMarker([point.lat, point.lng], {
+                    color: color,
+                    fillColor: color,
+                    fillOpacity: 0.6,
+                    radius: Math.max(6, point.windSpeed / 3)
+                }).addTo(weatherMap);
+
+                marker.bindPopup(`
+                    <div class="p-2">
+                        <h4 class="font-semibold text-slate-900">Weather Station</h4>
+                        <p class="text-sm text-slate-600">Wind: ${point.windSpeed} mph</p>
+                        <p class="text-sm text-slate-600">Temp: ${point.temp}°F</p>
+                        <p class="text-sm text-slate-600">Condition: ${point.condition}</p>
+                    </div>
+                `);
+            });
+        }
+
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+
+        // Weather overlay controls
+        const overlayButtons = ['wind-overlay', 'wave-overlay', 'temp-overlay', 'pressure-overlay', 'current-overlay'];
+        
+        overlayButtons.forEach(buttonId => {
+            document.getElementById(buttonId).addEventListener('click', function() {
+                // Remove active class from all buttons
+                overlayButtons.forEach(id => {
+                    const btn = document.getElementById(id);
+                    btn.classList.remove('bg-primary-100', 'text-primary');
+                    btn.classList.add('text-slate-600', 'hover:bg-slate-100');
+                });
+                
+                // Add active class to clicked button
+                this.classList.remove('text-slate-600', 'hover:bg-slate-100');
+                this.classList.add('bg-primary-100', 'text-primary');
+                
+                // Update map overlay (placeholder functionality)
+                console.log(`Switched to ${buttonId} overlay`);
+            });
+        });
+
+        // Refresh map functionality
+        document.getElementById('refresh-map').addEventListener('click', function() {
+            if (weatherMap) {
+                weatherMap.invalidateSize();
+                console.log('Map refreshed');
+            }
+        });
+
+        // Initialize map when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            initWeatherMap();
+        });
+
+        // Simulate real-time updates
+        setInterval(function() {
+            // Update current conditions (placeholder)
+            const timestamp = new Date().toLocaleTimeString();
+            console.log(`Weather data updated at ${timestamp}`);
+        }, 60000); // Update every minute
+    </script>
+<script id="dhws-dataInjector" src="../public/dhws-data-injector.js"></script>
+</body>
+</html>
