@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Learning Center & Fishing Education - Fishing Route Navigator</title>
+    <link rel="stylesheet" href="../css/main.css" />
+<script type="module" src="https://static.rocket.new/rocket-web.js?_cfg=https%3A%2F%2Ffishingro2722back.builtwithrocket.new&_be=https%3A%2F%2Fapplication.rocket.new&_v=0.1.5"></script>
+</head>
+<body class="bg-background font-inter">
+    <!-- Navigation Header -->
+    <nav class="bg-white shadow-card border-b border-slate-200 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <svg class="h-8 w-8 text-primary" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                            <circle cx="12" cy="8" r="2" fill="currentColor"/>
+                            <path d="M12 10c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/>
+                        </svg>
+                    </div>
+                    <div class="ml-3">
+                        <h1 class="text-xl font-bold text-primary">Fishing Route Navigator</h1>
+                    </div>
+                </div>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="interactive_map_dashboard_homepage.html" class="text-slate-600 hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition-maritime">Map Dashboard</a>
+                        <a href="route_planner_optimization.html" class="text-slate-600 hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition-maritime">Route Planner</a>
+                        <a href="weather_marine_conditions_center.html" class="text-slate-600 hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition-maritime">Weather</a>
+                        <a href="community_feed_social_platform.html" class="text-slate-600 hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition-maritime">Community</a>
+                        <a href="equipment_hub_gear_optimizer.html" class="text-slate-600 hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition-maritime">Equipment</a>
+                        <a href="learning_center_fishing_education.html" class="bg-primary-100 text-primary px-3 py-2 rounded-md text-sm font-medium">Learning</a>
+                    </div>
+                </div>
+
+                <!-- CTA Button -->
+                <div class="hidden md:block">
+                    <a href="route_planner_optimization.html" class="maritime-button-primary">Start Planning</a>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button type="button" class="text-slate-600 hover:text-primary p-2" id="mobile-menu-button">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Menu -->
+        <div class="md:hidden hidden" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white border-t border-slate-200">
+                <a href="interactive_map_dashboard_homepage.html" class="text-slate-600 hover:text-primary block px-3 py-2 rounded-md text-base font-medium">Map Dashboard</a>
+                <a href="route_planner_optimization.html" class="text-slate-600 hover:text-primary block px-3 py-2 rounded-md text-base font-medium">Route Planner</a>
+                <a href="weather_marine_conditions_center.html" class="text-slate-600 hover:text-primary block px-3 py-2 rounded-md text-base font-medium">Weather</a>
+                <a href="community_feed_social_platform.html" class="text-slate-600 hover:text-primary block px-3 py-2 rounded-md text-base font-medium">Community</a>
+                <a href="equipment_hub_gear_optimizer.html" class="text-slate-600 hover:text-primary block px-3 py-2 rounded-md text-base font-medium">Equipment</a>
+                <a href="learning_center_fishing_education.html" class="bg-primary-100 text-primary block px-3 py-2 rounded-md text-base font-medium">Learning</a>
+                <div class="px-3 py-2">
+                    <a href="route_planner_optimization.html" class="maritime-button-primary w-full text-center">Start Planning</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="relative">
+        <!-- Hero Section -->
+        <section class="bg-gradient-to-br from-primary-50 to-secondary-50 py-16">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center">
+                    <h1 class="text-4xl md:text-5xl font-bold text-slate-900 mb-6">Learning Center & Fishing Education</h1>
+                    <p class="text-xl text-slate-600 mb-8 max-w-3xl mx-auto">Master the art of fishing with comprehensive tutorials, expert guides, and interactive learning tools designed for anglers of all skill levels.</p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                        <button class="maritime-button-primary" id="start-learning-btn">Start Learning Journey</button>
+                        <button class="maritime-button-secondary" id="browse-courses-btn">Browse All Courses</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Learning Path Selection -->
+        <section class="py-16 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold text-slate-900 mb-4">Choose Your Learning Path</h2>
+                    <p class="text-lg text-slate-600">Tailored educational journeys for every angler</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Beginner Path -->
+                    <div class="maritime-card p-8 text-center hover:shadow-underwater transition-maritime">
+                        <div class="w-16 h-16 bg-success-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                            <svg class="h-8 w-8 text-success-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold text-slate-900 mb-4">Beginner Angler</h3>
+                        <p class="text-slate-600 mb-6">Start your fishing journey with fundamental techniques, basic equipment knowledge, and safety essentials.</p>
+                        <div class="space-y-2 mb-6">
+                            <div class="flex items-center text-sm text-slate-600">
+                                <svg class="h-4 w-4 text-success-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                </svg>
+                                Basic Fishing Techniques
+                            </div>
+                            <div class="flex items-center text-sm text-slate-600">
+                                <svg class="h-4 w-4 text-success-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                </svg>
+                                Equipment Selection Guide
+                            </div>
+                            <div class="flex items-center text-sm text-slate-600">
+                                <svg class="h-4 w-4 text-success-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                </svg>
+                                Safety & Regulations
+                            </div>
+                        </div>
+                        <button class="maritime-button-primary w-full">Start Beginner Path</button>
+                    </div>
+
+                    <!-- Intermediate Path -->
+                    <div class="maritime-card p-8 text-center hover:shadow-underwater transition-maritime">
+                        <div class="w-16 h-16 bg-warning-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                            <svg class="h-8 w-8 text-warning-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold text-slate-900 mb-4">Intermediate Angler</h3>
+                        <p class="text-slate-600 mb-6">Enhance your skills with advanced techniques, species-specific strategies, and navigation mastery.</p>
+                        <div class="space-y-2 mb-6">
+                            <div class="flex items-center text-sm text-slate-600">
+                                <svg class="h-4 w-4 text-success-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                </svg>
+                                Advanced Techniques
+                            </div>
+                            <div class="flex items-center text-sm text-slate-600">
+                                <svg class="h-4 w-4 text-success-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                </svg>
+                                Species Identification
+                            </div>
+                            <div class="flex items-center text-sm text-slate-600">
+                                <svg class="h-4 w-4 text-success-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                </svg>
+                                Navigation Skills
+                            </div>
+                        </div>
+                        <button class="maritime-button-primary w-full">Start Intermediate Path</button>
+                    </div>
+
+                    <!-- Expert Path -->
+                    <div class="maritime-card p-8 text-center hover:shadow-underwater transition-maritime">
+                        <div class="w-16 h-16 bg-accent-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                            <svg class="h-8 w-8 text-accent-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold text-slate-900 mb-4">Expert Angler</h3>
+                        <p class="text-slate-600 mb-6">Master professional techniques, fish behavior analysis, and advanced route optimization strategies.</p>
+                        <div class="space-y-2 mb-6">
+                            <div class="flex items-center text-sm text-slate-600">
+                                <svg class="h-4 w-4 text-success-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                </svg>
+                                Professional Techniques
+                            </div>
+                            <div class="flex items-center text-sm text-slate-600">
+                                <svg class="h-4 w-4 text-success-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                </svg>
+                                Fish Behavior Analysis
+                            </div>
+                            <div class="flex items-center text-sm text-slate-600">
+                                <svg class="h-4 w-4 text-success-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                                </svg>
+                                Route Optimization
+                            </div>
+                        </div>
+                        <button class="maritime-button-primary w-full">Start Expert Path</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured Courses -->
+        <section class="py-16 bg-primary-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold text-slate-900 mb-4">Featured Courses</h2>
+                    <p class="text-lg text-slate-600">Popular courses from our expert instructors</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Course 1 -->
+                    <div class="maritime-card overflow-hidden hover:shadow-underwater transition-maritime">
+                        <div class="relative">
+                            <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=400&h=200&fit=crop&crop=center" alt="Bass Fishing Mastery" class="w-full h-48 object-cover" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;" />
+                            <div class="absolute top-4 left-4">
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-success-100 text-success-800">Beginner</span>
+                            </div>
+                            <div class="absolute top-4 right-4">
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-white text-slate-700">4.8 ★</span>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-semibold text-slate-900 mb-2">Bass Fishing Mastery</h3>
+                            <p class="text-slate-600 mb-4">Learn proven techniques for catching largemouth and smallmouth bass in various water conditions.</p>
+                            <div class="flex items-center justify-between text-sm text-slate-500 mb-4">
+                                <span>By Captain Mike Johnson</span>
+                                <span>2.5 hours</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-2xl font-bold text-primary">$29</span>
+                                <button class="maritime-button-primary px-4 py-2 text-sm">Enroll Now</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Course 2 -->
+                    <div class="maritime-card overflow-hidden hover:shadow-underwater transition-maritime">
+                        <div class="relative">
+                            <img src="https://images.pexels.com/photos/1123982/pexels-photo-1123982.jpeg?w=400&h=200&fit=crop&crop=center" alt="Saltwater Navigation" class="w-full h-48 object-cover" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;" />
+                            <div class="absolute top-4 left-4">
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-warning-100 text-warning-800">Intermediate</span>
+                            </div>
+                            <div class="absolute top-4 right-4">
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-white text-slate-700">4.9 ★</span>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-semibold text-slate-900 mb-2">Saltwater Navigation</h3>
+                            <p class="text-slate-600 mb-4">Master GPS navigation, chart reading, and safety procedures for offshore fishing adventures.</p>
+                            <div class="flex items-center justify-between text-sm text-slate-500 mb-4">
+                                <span>By Captain Sarah Chen</span>
+                                <span>3.2 hours</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-2xl font-bold text-primary">$49</span>
+                                <button class="maritime-button-primary px-4 py-2 text-sm">Enroll Now</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Course 3 -->
+                    <div class="maritime-card overflow-hidden hover:shadow-underwater transition-maritime">
+                        <div class="relative">
+                            <img src="https://images.pixabay.com/photo/2016/10/22/20/34/salmon-1761404_1280.jpg?w=400&h=200&fit=crop&crop=center" alt="Species Identification" class="w-full h-48 object-cover" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;" />
+                            <div class="absolute top-4 left-4">
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-success-100 text-success-800">Beginner</span>
+                            </div>
+                            <div class="absolute top-4 right-4">
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-white text-slate-700">4.7 ★</span>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-semibold text-slate-900 mb-2">Species Identification</h3>
+                            <p class="text-slate-600 mb-4">Learn to identify common fish species, understand their behavior, and target them effectively.</p>
+                            <div class="flex items-center justify-between text-sm text-slate-500 mb-4">
+                                <span>By Dr. Maria Rodriguez</span>
+                                <span>1.8 hours</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-2xl font-bold text-primary">$19</span>
+                                <button class="maritime-button-primary px-4 py-2 text-sm">Enroll Now</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center mt-12">
+                    <button class="maritime-button-secondary">View All Courses</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Interactive Species Guide -->
+        <section class="py-16 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold text-slate-900 mb-4">Interactive Species Guide</h2>
+                    <p class="text-lg text-slate-600">Explore detailed information about popular fish species</p>
+                </div>
+
+                <!-- Species Filter -->
+                <div class="flex flex-wrap justify-center gap-4 mb-12">
+                    <button class="px-6 py-3 bg-primary text-white rounded-lg font-medium transition-maritime" data-filter="all">All Species</button>
+                    <button class="px-6 py-3 bg-slate-100 text-slate-600 hover:bg-slate-200 rounded-lg font-medium transition-maritime" data-filter="freshwater">Freshwater</button>
+                    <button class="px-6 py-3 bg-slate-100 text-slate-600 hover:bg-slate-200 rounded-lg font-medium transition-maritime" data-filter="saltwater">Saltwater</button>
+                    <button class="px-6 py-3 bg-slate-100 text-slate-600 hover:bg-slate-200 rounded-lg font-medium transition-maritime" data-filter="game">Game Fish</button>
+                </div>
+
+                <!-- Species Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" id="species-grid">
+                    <!-- Bass -->
+                    <div class="maritime-card p-6 text-center hover:shadow-underwater transition-maritime cursor-pointer" data-species="freshwater game">
+                        <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=150&h=100&fit=crop&crop=center" alt="Largemouth Bass" class="w-full h-24 object-cover rounded-lg mb-4" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;" />
+                        <h3 class="font-semibold text-slate-900 mb-2">Largemouth Bass</h3>
+                        <p class="text-sm text-slate-600 mb-3">Popular freshwater game fish known for aggressive strikes</p>
+                        <div class="flex justify-between text-xs text-slate-500">
+                            <span>Freshwater</span>
+                            <span>Game Fish</span>
+                        </div>
+                    </div>
+
+                    <!-- Trout -->
+                    <div class="maritime-card p-6 text-center hover:shadow-underwater transition-maritime cursor-pointer" data-species="freshwater">
+                        <img src="https://images.pexels.com/photos/1123982/pexels-photo-1123982.jpeg?w=150&h=100&fit=crop&crop=center" alt="Rainbow Trout" class="w-full h-24 object-cover rounded-lg mb-4" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;" />
+                        <h3 class="font-semibold text-slate-900 mb-2">Rainbow Trout</h3>
+                        <p class="text-sm text-slate-600 mb-3">Beautiful freshwater fish found in cold, clear waters</p>
+                        <div class="flex justify-between text-xs text-slate-500">
+                            <span>Freshwater</span>
+                            <span>Cold Water</span>
+                        </div>
+                    </div>
+
+                    <!-- Salmon -->
+                    <div class="maritime-card p-6 text-center hover:shadow-underwater transition-maritime cursor-pointer" data-species="saltwater game">
+                        <img src="https://images.pixabay.com/photo/2016/10/22/20/34/salmon-1761404_1280.jpg?w=150&h=100&fit=crop&crop=center" alt="Chinook Salmon" class="w-full h-24 object-cover rounded-lg mb-4" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;" />
+                        <h3 class="font-semibold text-slate-900 mb-2">Chinook Salmon</h3>
+                        <p class="text-sm text-slate-600 mb-3">Largest Pacific salmon species, prized by anglers</p>
+                        <div class="flex justify-between text-xs text-slate-500">
+                            <span>Saltwater</span>
+                            <span>Game Fish</span>
+                        </div>
+                    </div>
+
+                    <!-- Redfish -->
+                    <div class="maritime-card p-6 text-center hover:shadow-underwater transition-maritime cursor-pointer" data-species="saltwater game">
+                        <img src="https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=150&h=100&fit=crop&crop=center" alt="Redfish" class="w-full h-24 object-cover rounded-lg mb-4" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;" />
+                        <h3 class="font-semibold text-slate-900 mb-2">Redfish</h3>
+                        <p class="text-sm text-slate-600 mb-3">Popular inshore saltwater species with distinctive spots</p>
+                        <div class="flex justify-between text-xs text-slate-500">
+                            <span>Saltwater</span>
+                            <span>Inshore</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Progress Tracking -->
+        <section class="py-16 bg-secondary-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold text-slate-900 mb-4">Track Your Progress</h2>
+                    <p class="text-lg text-slate-600">Monitor your learning journey and achievements</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <!-- Courses Completed -->
+                    <div class="maritime-card p-6 text-center">
+                        <div class="w-16 h-16 bg-success-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <svg class="h-8 w-8 text-success-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                        </div>
+                        <div class="text-3xl font-bold text-success-600 mb-2">12</div>
+                        <div class="text-sm text-slate-600">Courses Completed</div>
+                    </div>
+
+                    <!-- Certificates Earned -->
+                    <div class="maritime-card p-6 text-center">
+                        <div class="w-16 h-16 bg-warning-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <svg class="h-8 w-8 text-warning-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/>
+                            </svg>
+                        </div>
+                        <div class="text-3xl font-bold text-warning-600 mb-2">5</div>
+                        <div class="text-sm text-slate-600">Certificates Earned</div>
+                    </div>
+
+                    <!-- Study Hours -->
+                    <div class="maritime-card p-6 text-center">
+                        <div class="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <svg class="h-8 w-8 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                        </div>
+                        <div class="text-3xl font-bold text-primary mb-2">48</div>
+                        <div class="text-sm text-slate-600">Study Hours</div>
+                    </div>
+
+                    <!-- Skill Level -->
+                    <div class="maritime-card p-6 text-center">
+                        <div class="w-16 h-16 bg-accent-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <svg class="h-8 w-8 text-accent-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                            </svg>
+                        </div>
+                        <div class="text-3xl font-bold text-accent-600 mb-2">85%</div>
+                        <div class="text-sm text-slate-600">Skill Level</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Safety Education -->
+        <section class="py-16 bg-white">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold text-slate-900 mb-4">Safety Education</h2>
+                    <p class="text-lg text-slate-600">Essential safety knowledge for every angler</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- Safety Topics -->
+                    <div class="space-y-6">
+                        <div class="maritime-card p-6 hover:shadow-underwater transition-maritime">
+                            <div class="flex items-start space-x-4">
+                                <div class="w-12 h-12 bg-error-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                                    <svg class="h-6 w-6 text-error-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z"/>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h3 class="text-lg font-semibold text-slate-900 mb-2">Weather Safety</h3>
+                                    <p class="text-slate-600 mb-3">Learn to read weather patterns, understand marine forecasts, and make safe decisions on the water.</p>
+                                    <button class="text-primary font-medium hover:text-primary-700 transition-maritime">Learn More →</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="maritime-card p-6 hover:shadow-underwater transition-maritime">
+                            <div class="flex items-start space-x-4">
+                                <div class="w-12 h-12 bg-warning-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                                    <svg class="h-6 w-6 text-warning-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h3 class="text-lg font-semibold text-slate-900 mb-2">Emergency Procedures</h3>
+                                    <p class="text-slate-600 mb-3">Essential emergency protocols, communication procedures, and first aid basics for fishing trips.</p>
+                                    <button class="text-primary font-medium hover:text-primary-700 transition-maritime">Learn More →</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="maritime-card p-6 hover:shadow-underwater transition-maritime">
+                            <div class="flex items-start space-x-4">
+                                <div class="w-12 h-12 bg-success-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                                    <svg class="h-6 w-6 text-success-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h3 class="text-lg font-semibold text-slate-900 mb-2">Regulations & Compliance</h3>
+                                    <p class="text-slate-600 mb-3">Stay updated on fishing regulations, licensing requirements, and conservation practices.</p>
+                                    <button class="text-primary font-medium hover:text-primary-700 transition-maritime">Learn More →</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Safety Certification -->
+                    <div class="maritime-card p-8">
+                        <div class="text-center mb-6">
+                            <div class="w-20 h-20 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                                <svg class="h-10 w-10 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/>
+                                </svg>
+                            </div>
+                            <h3 class="text-xl font-semibold text-slate-900 mb-2">Safety Certification</h3>
+                            <p class="text-slate-600 mb-6">Complete our comprehensive safety course and earn your maritime safety certification.</p>
+                        </div>
+
+                        <div class="space-y-4 mb-6">
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm text-slate-600">Course Progress</span>
+                                <span class="text-sm font-medium text-slate-900">75%</span>
+                            </div>
+                            <div class="w-full bg-slate-200 rounded-full h-2">
+                                <div class="bg-primary h-2 rounded-full" style="width: 75%"></div>
+                            </div>
+                        </div>
+
+                        <button class="maritime-button-primary w-full">Continue Certification</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Community Q&A -->
+        <section class="py-16 bg-primary-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl font-bold text-slate-900 mb-4">Community Q&A</h2>
+                    <p class="text-lg text-slate-600">Get answers from experienced anglers and certified guides</p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <!-- Recent Questions -->
+                    <div>
+                        <h3 class="text-xl font-semibold text-slate-900 mb-6">Recent Questions</h3>
+                        <div class="space-y-4">
+                            <div class="maritime-card p-6 hover:shadow-underwater transition-maritime">
+                                <div class="flex items-start space-x-4">
+                                    <img src="https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?w=40&h=40&fit=crop&crop=face" alt="User Avatar" class="w-10 h-10 rounded-full object-cover" />
+                                    <div class="flex-1">
+                                        <h4 class="font-medium text-slate-900 mb-1">Best lures for bass in spring?</h4>
+                                        <p class="text-sm text-slate-600 mb-2">What are the most effective lures for catching bass during spring spawning season?</p>
+                                        <div class="flex items-center space-x-4 text-xs text-slate-500">
+                                            <span>by Mike Johnson</span>
+                                            <span>3 answers</span>
+                                            <span>2 hours ago</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="maritime-card p-6 hover:shadow-underwater transition-maritime">
+                                <div class="flex items-start space-x-4">
+                                    <img src="https://images.pixabay.com/photo/2016/11/21/12/42/beard-1845166_1280.jpg?w=40&h=40&fit=crop&crop=face" alt="User Avatar" class="w-10 h-10 rounded-full object-cover" />
+                                    <div class="flex-1">
+                                        <h4 class="font-medium text-slate-900 mb-1">Reading fish finder displays</h4>
+                                        <p class="text-sm text-slate-600 mb-2">How do I interpret the different marks and colors on my fish finder screen?</p>
+                                        <div class="flex items-center space-x-4 text-xs text-slate-500">
+                                            <span>by Sarah Chen</span>
+                                            <span>5 answers</span>
+                                            <span>4 hours ago</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="maritime-card p-6 hover:shadow-underwater transition-maritime">
+                                <div class="flex items-start space-x-4">
+                                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=40&h=40&fit=crop&crop=face" alt="User Avatar" class="w-10 h-10 rounded-full object-cover" />
+                                    <div class="flex-1">
+                                        <h4 class="font-medium text-slate-900 mb-1">Saltwater tackle maintenance</h4>
+                                        <p class="text-sm text-slate-600 mb-2">What's the best way to clean and maintain reels after saltwater fishing?</p>
+                                        <div class="flex items-center space-x-4 text-xs text-slate-500">
+                                            <span>by David Rodriguez</span>
+                                            <span>7 answers</span>
+                                            <span>6 hours ago</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mt-6">
+                            <a href="community_feed_social_platform.html" class="maritime-button-secondary w-full text-center">View All Questions</a>
+                        </div>
+                    </div>
+
+                    <!-- Ask a Question -->
+                    <div>
+                        <h3 class="text-xl font-semibold text-slate-900 mb-6">Ask a Question</h3>
+                        <div class="maritime-card p-6">
+                            <form class="space-y-4">
+                                <div>
+                                    <label for="question-title" class="block text-sm font-medium text-slate-700 mb-2">Question Title</label>
+                                    <input type="text" id="question-title" class="maritime-input" placeholder="Enter your question title" />
+                                </div>
+                                <div>
+                                    <label for="question-category" class="block text-sm font-medium text-slate-700 mb-2">Category</label>
+                                    <select id="question-category" class="maritime-input">
+                                        <option>Select a category</option>
+                                        <option>Fishing Techniques</option>
+                                        <option>Equipment & Gear</option>
+                                        <option>Navigation & Safety</option>
+                                        <option>Species Identification</option>
+                                        <option>Weather & Conditions</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label for="question-details" class="block text-sm font-medium text-slate-700 mb-2">Question Details</label>
+                                    <textarea id="question-details" rows="4" class="maritime-input" placeholder="Provide detailed information about your question"></textarea>
+                                </div>
+                                <button type="submit" class="maritime-button-primary w-full">Post Question</button>
+                            </form>
+                        </div>
+
+                        <!-- Expert Guides -->
+                        <div class="mt-8">
+                            <h4 class="text-lg font-semibold text-slate-900 mb-4">Expert Guides Available</h4>
+                            <div class="space-y-3">
+                                <div class="flex items-center space-x-3">
+                                    <img src="https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?w=40&h=40&fit=crop&crop=face" alt="Expert Guide" class="w-10 h-10 rounded-full object-cover" />
+                                    <div>
+                                        <div class="font-medium text-slate-900">Captain Mike Johnson</div>
+                                        <div class="text-sm text-slate-600">Bass Fishing Specialist</div>
+                                    </div>
+                                    <div class="ml-auto">
+                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-success-100 text-success-800">Online</span>
+                                    </div>
+                                </div>
+                                <div class="flex items-center space-x-3">
+                                    <img src="https://images.pixabay.com/photo/2016/11/21/12/42/beard-1845166_1280.jpg?w=40&h=40&fit=crop&crop=face" alt="Expert Guide" class="w-10 h-10 rounded-full object-cover" />
+                                    <div>
+                                        <div class="font-medium text-slate-900">Captain Sarah Chen</div>
+                                        <div class="text-sm text-slate-600">Saltwater Navigation Expert</div>
+                                    </div>
+                                    <div class="ml-auto">
+                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-success-100 text-success-800">Online</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-white py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <p class="text-slate-400">© 2025 Fishing Route Navigator. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+
+        // Species filter functionality
+        const filterButtons = document.querySelectorAll('[data-filter]');
+        const speciesCards = document.querySelectorAll('[data-species]');
+
+        filterButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const filter = this.getAttribute('data-filter');
+                
+                // Update button states
+                filterButtons.forEach(btn => {
+                    btn.classList.remove('bg-primary', 'text-white');
+                    btn.classList.add('bg-slate-100', 'text-slate-600');
+                });
+                this.classList.remove('bg-slate-100', 'text-slate-600');
+                this.classList.add('bg-primary', 'text-white');
+
+                // Filter species cards
+                speciesCards.forEach(card => {
+                    const species = card.getAttribute('data-species');
+                    if (filter === 'all' || species.includes(filter)) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Learning path buttons
+        document.getElementById('start-learning-btn').addEventListener('click', function() {
+            // Scroll to learning paths section
+            document.querySelector('.grid.grid-cols-1.md\\:grid-cols-3').scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+
+        document.getElementById('browse-courses-btn').addEventListener('click', function() {
+            // Scroll to featured courses section
+            document.querySelector('.grid.grid-cols-1.md\\:grid-cols-2.lg\\:grid-cols-3').scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+
+        // Species card click handlers
+        speciesCards.forEach(card => {
+            card.addEventListener('click', function() {
+                // In a real app, this would open a detailed species modal
+                const speciesName = this.querySelector('h3').textContent;
+                alert(`Opening detailed information for ${speciesName}`);
+            });
+        });
+
+        // Form submission handler
+        document.querySelector('form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const title = document.getElementById('question-title').value;
+            const category = document.getElementById('question-category').value;
+            const details = document.getElementById('question-details').value;
+
+            if (title && category && details) {
+                alert('Question posted successfully! Our community will respond soon.');
+                this.reset();
+            } else {
+                alert('Please fill in all fields before submitting your question.');
+            }
+        });
+
+        // Simulate real-time updates for expert availability
+        setInterval(function() {
+            const onlineIndicators = document.querySelectorAll('.bg-success-100');
+            onlineIndicators.forEach(indicator => {
+                // Randomly toggle online status for demo purposes
+                if (Math.random() > 0.8) {
+                    indicator.classList.toggle('bg-success-100');
+                    indicator.classList.toggle('bg-slate-100');
+                    indicator.classList.toggle('text-success-800');
+                    indicator.classList.toggle('text-slate-600');
+                    indicator.textContent = indicator.textContent === 'Online' ? 'Away' : 'Online';
+                }
+            });
+        }, 30000); // Update every 30 seconds
+    </script>
+<script id="dhws-dataInjector" src="../public/dhws-data-injector.js"></script>
+</body>
+</html>
