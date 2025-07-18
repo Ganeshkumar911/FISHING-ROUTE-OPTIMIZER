@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Interactive Map Dashboard - Fishing Route Navigator</title>
+    <link rel="stylesheet" href="../css/main.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script type="module" src="https://static.rocket.new/rocket-web.js?_cfg=https%3A%2F%2Ffishingro2722back.builtwithrocket.new&_be=https%3A%2F%2Fapplication.rocket.new&_v=0.1.5"></script>
+</head>
+<body class="bg-background font-inter">
+    <!-- Navigation Header -->
+    <nav class="bg-white shadow-card border-b border-slate-200 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <svg class="h-8 w-8 text-primary" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                            <circle cx="12" cy="8" r="2" fill="currentColor"/>
+                            <path d="M12 10c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/>
+                        </svg>
+                    </div>
+                    <div class="ml-3">
+                        <h1 class="text-xl font-bold text-primary">Fishing Route Navigator</h1>
+                    </div>
+                </div>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="interactive_map_dashboard_homepage.html" class="bg-primary-100 text-primary px-3 py-2 rounded-md text-sm font-medium">Map Dashboard</a>
+                        <a href="route_planner_optimization.html" class="text-slate-600 hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition-maritime">Route Planner</a>
+                        <a href="weather_marine_conditions_center.html" class="text-slate-600 hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition-maritime">Weather</a>
+                        <a href="community_feed_social_platform.html" class="text-slate-600 hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition-maritime">Community</a>
+                        <a href="equipment_hub_gear_optimizer.html" class="text-slate-600 hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition-maritime">Equipment</a>
+                        <a href="learning_center_fishing_education.html" class="text-slate-600 hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition-maritime">Learning</a>
+                    </div>
+                </div>
+
+                <!-- CTA Button -->
+                <div class="hidden md:block">
+                    <a href="route_planner_optimization.html" class="maritime-button-primary">Start Planning</a>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button type="button" class="text-slate-600 hover:text-primary p-2" id="mobile-menu-button">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Menu -->
+        <div class="md:hidden hidden" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white border-t border-slate-200">
+                <a href="interactive_map_dashboard_homepage.html" class="bg-primary-100 text-primary block px-3 py-2 rounded-md text-base font-medium">Map Dashboard</a>
+                <a href="route_planner_optimization.html" class="text-slate-600 hover:text-primary block px-3 py-2 rounded-md text-base font-medium">Route Planner</a>
+                <a href="weather_marine_conditions_center.html" class="text-slate-600 hover:text-primary block px-3 py-2 rounded-md text-base font-medium">Weather</a>
+                <a href="community_feed_social_platform.html" class="text-slate-600 hover:text-primary block px-3 py-2 rounded-md text-base font-medium">Community</a>
+                <a href="equipment_hub_gear_optimizer.html" class="text-slate-600 hover:text-primary block px-3 py-2 rounded-md text-base font-medium">Equipment</a>
+                <a href="learning_center_fishing_education.html" class="text-slate-600 hover:text-primary block px-3 py-2 rounded-md text-base font-medium">Learning</a>
+                <div class="px-3 py-2">
+                    <a href="route_planner_optimization.html" class="maritime-button-primary w-full text-center">Start Planning</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="relative">
+        <!-- Interactive Map Container -->
+        <section class="relative h-screen bg-primary-50" id="map-section">
+            <!-- Floating Search Bar -->
+            <div class="absolute top-6 left-1/2 transform -translate-x-1/2 z-40 w-full max-w-2xl px-4">
+                <div class="maritime-card p-4">
+                    <div class="flex items-center space-x-4">
+                        <div class="flex-1 relative">
+                            <input type="text" placeholder="Search coordinates or location..." class="maritime-input pl-10" id="location-search" />
+                            <svg class="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                            </svg>
+                        </div>
+                        <button class="maritime-button-primary px-4 py-3">
+                            <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Filter Controls -->
+            <div class="absolute top-24 left-6 z-40 space-y-3">
+                <div class="maritime-card p-3">
+                    <h3 class="text-sm font-semibold text-slate-700 mb-2">Quick Filters</h3>
+                    <div class="space-y-2">
+                        <button class="w-full text-left px-3 py-2 text-sm bg-success-100 text-success-700 rounded-md font-medium">All Species</button>
+                        <button class="w-full text-left px-3 py-2 text-sm text-slate-600 hover:bg-slate-100 rounded-md transition-maritime">Bass</button>
+                        <button class="w-full text-left px-3 py-2 text-sm text-slate-600 hover:bg-slate-100 rounded-md transition-maritime">Trout</button>
+                        <button class="w-full text-left px-3 py-2 text-sm text-slate-600 hover:bg-slate-100 rounded-md transition-maritime">Salmon</button>
+                    </div>
+                </div>
+
+                <div class="maritime-card p-3">
+                    <h3 class="text-sm font-semibold text-slate-700 mb-2">Water Depth</h3>
+                    <div class="space-y-2">
+                        <button class="w-full text-left px-3 py-2 text-sm bg-primary-100 text-primary rounded-md font-medium">All Depths</button>
+                        <button class="w-full text-left px-3 py-2 text-sm text-slate-600 hover:bg-slate-100 rounded-md transition-maritime">Shallow (0-20ft)</button>
+                        <button class="w-full text-left px-3 py-2 text-sm text-slate-600 hover:bg-slate-100 rounded-md transition-maritime">Deep (20ft+)</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Map Container -->
+            <div id="map" class="w-full h-full"></div>
+
+            <!-- Legend -->
+            <div class="absolute bottom-6 left-6 z-40">
+                <div class="maritime-card p-4">
+                    <h3 class="text-sm font-semibold text-slate-700 mb-3">Hotspot Success Rate</h3>
+                    <div class="space-y-2">
+                        <div class="flex items-center space-x-2">
+                            <div class="w-3 h-3 bg-success-500 rounded-full"></div>
+                            <span class="text-sm text-slate-600">High (80%+)</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <div class="w-3 h-3 bg-warning-500 rounded-full"></div>
+                            <span class="text-sm text-slate-600">Medium (50-79%)</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <div class="w-3 h-3 bg-accent-500 rounded-full"></div>
+                            <span class="text-sm text-slate-600">Low (20-49%)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Weather Sidebar -->
+        <aside class="fixed right-0 top-16 h-screen w-80 bg-white shadow-modal border-l border-slate-200 z-30 transform translate-x-full transition-transform duration-300" id="weather-sidebar">
+            <div class="p-6 h-full overflow-y-auto">
+                <div class="flex items-center justify-between mb-6">
+                    <h2 class="text-lg font-semibold text-slate-900">Marine Conditions</h2>
+                    <button class="text-slate-400 hover:text-slate-600" id="close-weather">
+                        <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Current Conditions -->
+                <div class="maritime-card p-4 mb-4">
+                    <h3 class="font-semibold text-slate-700 mb-3">Current Conditions</h3>
+                    <div class="space-y-3">
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-slate-600">Wind Speed</span>
+                            <span class="text-sm font-medium text-slate-900">12 mph NE</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-slate-600">Wave Height</span>
+                            <span class="text-sm font-medium text-slate-900">2-3 ft</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-slate-600">Visibility</span>
+                            <span class="text-sm font-medium text-slate-900">8 miles</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-slate-600">Water Temp</span>
+                            <span class="text-sm font-medium text-slate-900">68°F</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Forecast -->
+                <div class="maritime-card p-4 mb-4">
+                    <h3 class="font-semibold text-slate-700 mb-3">3-Day Forecast</h3>
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center space-x-2">
+                                <img src="https://images.unsplash.com/photo-1504608524841-42fe6f032b4b?w=32&h=32&fit=crop&crop=center" alt="Sunny" class="w-8 h-8 rounded" />
+                                <span class="text-sm text-slate-600">Today</span>
+                            </div>
+                            <div class="text-right">
+                                <div class="text-sm font-medium text-slate-900">72°F</div>
+                                <div class="text-xs text-success-600">Excellent</div>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center space-x-2">
+                                <img src="https://images.unsplash.com/photo-1534274988757-a28bf1a57c17?w=32&h=32&fit=crop&crop=center" alt="Cloudy" class="w-8 h-8 rounded" />
+                                <span class="text-sm text-slate-600">Tomorrow</span>
+                            </div>
+                            <div class="text-right">
+                                <div class="text-sm font-medium text-slate-900">69°F</div>
+                                <div class="text-xs text-warning-600">Good</div>
+                            </div>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center space-x-2">
+                                <img src="https://images.unsplash.com/photo-1515694346937-94d85e41e6f0?w=32&h=32&fit=crop&crop=center" alt="Rainy" class="w-8 h-8 rounded" />
+                                <span class="text-sm text-slate-600">Wed</span>
+                            </div>
+                            <div class="text-right">
+                                <div class="text-sm font-medium text-slate-900">65°F</div>
+                                <div class="text-xs text-accent-600">Fair</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tides -->
+                <div class="maritime-card p-4">
+                    <h3 class="font-semibold text-slate-700 mb-3">Tide Information</h3>
+                    <div class="space-y-2">
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-slate-600">High Tide</span>
+                            <span class="text-sm font-medium text-slate-900">6:24 AM</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-slate-600">Low Tide</span>
+                            <span class="text-sm font-medium text-slate-900">12:18 PM</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-slate-600">Next High</span>
+                            <span class="text-sm font-medium text-slate-900">6:45 PM</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Weather Toggle Button -->
+        <button class="fixed right-6 top-24 z-40 maritime-button-secondary p-3 rounded-full shadow-card" id="weather-toggle">
+            <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.002 4.002 0 003 15z"/>
+            </svg>
+        </button>
+
+        <!-- Community Feed Section -->
+        <section class="bg-white py-12" id="community-feed">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-8">
+                    <h2 class="text-3xl font-bold text-slate-900 mb-4">Live Community Feed</h2>
+                    <p class="text-lg text-slate-600">Real-time catch reports from fellow anglers</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Catch Report 1 -->
+                    <div class="maritime-card p-6 hover:shadow-underwater transition-maritime">
+                        <div class="flex items-center space-x-3 mb-4">
+                            <img src="https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?w=40&h=40&fit=crop&crop=face" alt="Mike Johnson" class="w-10 h-10 rounded-full object-cover" />
+                            <div>
+                                <h3 class="font-semibold text-slate-900">Mike Johnson</h3>
+                                <p class="text-sm text-slate-600">2 hours ago</p>
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=400&h=200&fit=crop&crop=center" alt="Large Bass Catch" class="w-full h-48 object-cover rounded-lg" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;" />
+                        </div>
+                        <div class="space-y-2">
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm font-medium text-slate-700">Species:</span>
+                                <span class="text-sm text-slate-900">Largemouth Bass</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm font-medium text-slate-700">Weight:</span>
+                                <span class="text-sm text-slate-900">4.2 lbs</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm font-medium text-slate-700">Location:</span>
+                                <span class="text-sm text-primary">Lake Tahoe, CA</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm font-medium text-slate-700">Success Rate:</span>
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-success-100 text-success-800">85%</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Catch Report 2 -->
+                    <div class="maritime-card p-6 hover:shadow-underwater transition-maritime">
+                        <div class="flex items-center space-x-3 mb-4">
+                            <img src="https://images.pixabay.com/photo/2016/11/21/12/42/beard-1845166_1280.jpg?w=40&h=40&fit=crop&crop=face" alt="Sarah Chen" class="w-10 h-10 rounded-full object-cover" />
+                            <div>
+                                <h3 class="font-semibold text-slate-900">Sarah Chen</h3>
+                                <p class="text-sm text-slate-600">4 hours ago</p>
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <img src="https://images.pexels.com/photos/1123982/pexels-photo-1123982.jpeg?w=400&h=200&fit=crop&crop=center" alt="Trout Catch" class="w-full h-48 object-cover rounded-lg" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;" />
+                        </div>
+                        <div class="space-y-2">
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm font-medium text-slate-700">Species:</span>
+                                <span class="text-sm text-slate-900">Rainbow Trout</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm font-medium text-slate-700">Weight:</span>
+                                <span class="text-sm text-slate-900">2.8 lbs</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm font-medium text-slate-700">Location:</span>
+                                <span class="text-sm text-primary">Colorado River, CO</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm font-medium text-slate-700">Success Rate:</span>
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-warning-100 text-warning-800">72%</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Catch Report 3 -->
+                    <div class="maritime-card p-6 hover:shadow-underwater transition-maritime">
+                        <div class="flex items-center space-x-3 mb-4">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=40&h=40&fit=crop&crop=face" alt="David Rodriguez" class="w-10 h-10 rounded-full object-cover" />
+                            <div>
+                                <h3 class="font-semibold text-slate-900">David Rodriguez</h3>
+                                <p class="text-sm text-slate-600">6 hours ago</p>
+                            </div>
+                        </div>
+                        <div class="mb-4">
+                            <img src="https://images.pixabay.com/photo/2016/10/22/20/34/salmon-1761404_1280.jpg?w=400&h=200&fit=crop&crop=center" alt="Salmon Catch" class="w-full h-48 object-cover rounded-lg" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;" />
+                        </div>
+                        <div class="space-y-2">
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm font-medium text-slate-700">Species:</span>
+                                <span class="text-sm text-slate-900">Chinook Salmon</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm font-medium text-slate-700">Weight:</span>
+                                <span class="text-sm text-slate-900">12.5 lbs</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm font-medium text-slate-700">Location:</span>
+                                <span class="text-sm text-primary">Pacific Coast, OR</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm font-medium text-slate-700">Success Rate:</span>
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-success-100 text-success-800">91%</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center mt-8">
+                    <a href="community_feed_social_platform.html" class="maritime-button-secondary">View All Reports</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Quick Stats Section -->
+        <section class="bg-primary-50 py-12">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                    <div class="text-center">
+                        <div class="text-3xl font-bold text-primary mb-2">2,847</div>
+                        <div class="text-sm text-slate-600">Active Hotspots</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-3xl font-bold text-success-600 mb-2">89%</div>
+                        <div class="text-sm text-slate-600">Success Rate</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-3xl font-bold text-secondary mb-2">15,432</div>
+                        <div class="text-sm text-slate-600">Routes Planned</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-3xl font-bold text-accent mb-2">$2.3M</div>
+                        <div class="text-sm text-slate-600">Fuel Saved</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-white py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <p class="text-slate-400">© 2025 Fishing Route Navigator. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize map
+        let map;
+        let markers = [];
+
+        function initMap() {
+            // Initialize the map
+            map = L.map('map').setView([20.5937, 78.9629], 5);
+
+            // Add tile layer
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '© OpenStreetMap contributors'
+            }).addTo(map);
+
+            // Sample hotspot data
+            const hotspots = [
+                { lat: 37.7849, lng: -122.4094, species: 'Bass', successRate: 85, name: 'Golden Gate Hotspot' },
+                { lat: 37.7649, lng: -122.4294, species: 'Trout', successRate: 72, name: 'Bay Bridge Spot' },
+                { lat: 37.7949, lng: -122.3994, species: 'Salmon', successRate: 91, name: 'Alcatraz Waters' },
+                { lat: 37.7549, lng: -122.4394, species: 'Bass', successRate: 68, name: 'Pier 39 Area' },
+                { lat: 37.8049, lng: -122.4194, species: 'Trout', successRate: 79, name: 'Marina District' }
+            ];
+
+            // Add hotspot markers
+            hotspots.forEach(hotspot => {
+                let color = '#ef4444'; // red for low
+                if (hotspot.successRate >= 80) color = '#10b981'; // green for high
+                else if (hotspot.successRate >= 50) color = '#f59e0b'; // yellow for medium
+
+                const marker = L.circleMarker([hotspot.lat, hotspot.lng], {
+                    color: color,
+                    fillColor: color,
+                    fillOpacity: 0.7,
+                    radius: 8
+                }).addTo(map);
+
+                marker.bindPopup(`
+                    <div class="p-2">
+                        <h3 class="font-semibold text-slate-900">${hotspot.name}</h3>
+                        <p class="text-sm text-slate-600">Species: ${hotspot.species}</p>
+                        <p class="text-sm text-slate-600">Success Rate: ${hotspot.successRate}%</p>
+                        <button class="mt-2 px-3 py-1 bg-primary text-white text-xs rounded">Plan Route</button>
+                    </div>
+                `);
+
+                markers.push(marker);
+            });
+        }
+
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+
+        // Weather sidebar toggle
+        document.getElementById('weather-toggle').addEventListener('click', function() {
+            const sidebar = document.getElementById('weather-sidebar');
+            sidebar.classList.toggle('translate-x-full');
+        });
+
+        document.getElementById('close-weather').addEventListener('click', function() {
+            const sidebar = document.getElementById('weather-sidebar');
+            sidebar.classList.add('translate-x-full');
+        });
+
+        // Initialize map when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            initMap();
+        });
+
+        // Search functionality
+        document.getElementById('location-search').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                const query = this.value;
+                // Simulate search - in real app would use geocoding API
+                if (query.toLowerCase().includes('golden gate')) {
+                    map.setView([37.8199, -122.4783], 13);
+                } else if (query.toLowerCase().includes('bay bridge')) {
+                    map.setView([37.7983, -122.3778], 13);
+                }
+            }
+        });
+    </script>
+<script id="dhws-dataInjector" src="../public/dhws-data-injector.js"></script>
+</body>
+</html>

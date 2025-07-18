@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Community Feed & Social Platform - Fishing Route Navigator</title>
+    <link rel="stylesheet" href="../css/main.css" />
+<script type="module" src="https://static.rocket.new/rocket-web.js?_cfg=https%3A%2F%2Ffishingro2722back.builtwithrocket.new&_be=https%3A%2F%2Fapplication.rocket.new&_v=0.1.5"></script>
+</head>
+<body class="bg-background font-inter">
+    <!-- Navigation Header -->
+    <nav class="bg-white shadow-card border-b border-slate-200 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo -->
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <svg class="h-8 w-8 text-primary" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                            <circle cx="12" cy="8" r="2" fill="currentColor"/>
+                            <path d="M12 10c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/>
+                        </svg>
+                    </div>
+                    <div class="ml-3">
+                        <h1 class="text-xl font-bold text-primary">Fishing Route Navigator</h1>
+                    </div>
+                </div>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="interactive_map_dashboard_homepage.html" class="text-slate-600 hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition-maritime">Map Dashboard</a>
+                        <a href="route_planner_optimization.html" class="text-slate-600 hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition-maritime">Route Planner</a>
+                        <a href="weather_marine_conditions_center.html" class="text-slate-600 hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition-maritime">Weather</a>
+                        <a href="community_feed_social_platform.html" class="bg-primary-100 text-primary px-3 py-2 rounded-md text-sm font-medium">Community</a>
+                        <a href="equipment_hub_gear_optimizer.html" class="text-slate-600 hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition-maritime">Equipment</a>
+                        <a href="learning_center_fishing_education.html" class="text-slate-600 hover:text-primary px-3 py-2 rounded-md text-sm font-medium transition-maritime">Learning</a>
+                    </div>
+                </div>
+
+                <!-- CTA Button -->
+                <div class="hidden md:block">
+                    <button class="maritime-button-primary" id="share-catch-btn">Share Catch</button>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button type="button" class="text-slate-600 hover:text-primary p-2" id="mobile-menu-button">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Menu -->
+        <div class="md:hidden hidden" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white border-t border-slate-200">
+                <a href="interactive_map_dashboard_homepage.html" class="text-slate-600 hover:text-primary block px-3 py-2 rounded-md text-base font-medium">Map Dashboard</a>
+                <a href="route_planner_optimization.html" class="text-slate-600 hover:text-primary block px-3 py-2 rounded-md text-base font-medium">Route Planner</a>
+                <a href="weather_marine_conditions_center.html" class="text-slate-600 hover:text-primary block px-3 py-2 rounded-md text-base font-medium">Weather</a>
+                <a href="community_feed_social_platform.html" class="bg-primary-100 text-primary block px-3 py-2 rounded-md text-base font-medium">Community</a>
+                <a href="equipment_hub_gear_optimizer.html" class="text-slate-600 hover:text-primary block px-3 py-2 rounded-md text-base font-medium">Equipment</a>
+                <a href="learning_center_fishing_education.html" class="text-slate-600 hover:text-primary block px-3 py-2 rounded-md text-base font-medium">Learning</a>
+                <div class="px-3 py-2">
+                    <button class="maritime-button-primary w-full text-center" id="mobile-share-catch-btn">Share Catch</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+            <!-- Left Sidebar - Filters & Groups -->
+            <aside class="lg:col-span-1">
+                <!-- Quick Filters -->
+                <div class="maritime-card p-6 mb-6">
+                    <h3 class="text-lg font-semibold text-slate-900 mb-4">Quick Filters</h3>
+                    <div class="space-y-3">
+                        <button class="w-full text-left px-4 py-2 bg-primary-100 text-primary rounded-lg font-medium transition-maritime">All Posts</button>
+                        <button class="w-full text-left px-4 py-2 text-slate-600 hover:bg-slate-100 rounded-lg transition-maritime">Recent Catches</button>
+                        <button class="w-full text-left px-4 py-2 text-slate-600 hover:bg-slate-100 rounded-lg transition-maritime">Route Shares</button>
+                        <button class="w-full text-left px-4 py-2 text-slate-600 hover:bg-slate-100 rounded-lg transition-maritime">Local Groups</button>
+                        <button class="w-full text-left px-4 py-2 text-slate-600 hover:bg-slate-100 rounded-lg transition-maritime">Tournaments</button>
+                    </div>
+                </div>
+
+                <!-- Local Groups -->
+                <div class="maritime-card p-6 mb-6">
+                    <h3 class="text-lg font-semibold text-slate-900 mb-4">Local Groups</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-10 h-10 bg-primary-100 rounded-full flex items-center justify-center">
+                                <svg class="h-5 w-5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                </svg>
+                            </div>
+                            <div class="flex-1">
+                                <h4 class="font-medium text-slate-900">Bay Area Anglers</h4>
+                                <p class="text-sm text-slate-600">2,847 members</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-10 h-10 bg-success-100 rounded-full flex items-center justify-center">
+                                <svg class="h-5 w-5 text-success-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                                </svg>
+                            </div>
+                            <div class="flex-1">
+                                <h4 class="font-medium text-slate-900">Bass Masters</h4>
+                                <p class="text-sm text-slate-600">1,523 members</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-10 h-10 bg-secondary-100 rounded-full flex items-center justify-center">
+                                <svg class="h-5 w-5 text-secondary-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.002 4.002 0 003 15z"/>
+                                </svg>
+                            </div>
+                            <div class="flex-1">
+                                <h4 class="font-medium text-slate-900">Deep Sea Pros</h4>
+                                <p class="text-sm text-slate-600">892 members</p>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="w-full mt-4 text-primary text-sm font-medium hover:text-primary-700 transition-maritime">View All Groups</button>
+                </div>
+
+                <!-- Leaderboard -->
+                <div class="maritime-card p-6">
+                    <h3 class="text-lg font-semibold text-slate-900 mb-4">Weekly Leaderboard</h3>
+                    <div class="space-y-3">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-6 h-6 bg-warning-500 rounded-full flex items-center justify-center text-white text-xs font-bold">1</div>
+                            <img src="https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?w=32&h=32&fit=crop&crop=face" alt="Mike Johnson" class="w-8 h-8 rounded-full object-cover" />
+                            <div class="flex-1">
+                                <p class="font-medium text-slate-900">Mike Johnson</p>
+                                <p class="text-xs text-slate-600">847 points</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-6 h-6 bg-slate-400 rounded-full flex items-center justify-center text-white text-xs font-bold">2</div>
+                            <img src="https://images.pixabay.com/photo/2016/11/21/12/42/beard-1845166_1280.jpg?w=32&h=32&fit=crop&crop=face" alt="Sarah Chen" class="w-8 h-8 rounded-full object-cover" />
+                            <div class="flex-1">
+                                <p class="font-medium text-slate-900">Sarah Chen</p>
+                                <p class="text-xs text-slate-600">723 points</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <div class="w-6 h-6 bg-accent-600 rounded-full flex items-center justify-center text-white text-xs font-bold">3</div>
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=32&h=32&fit=crop&crop=face" alt="David Rodriguez" class="w-8 h-8 rounded-full object-cover" />
+                            <div class="flex-1">
+                                <p class="font-medium text-slate-900">David Rodriguez</p>
+                                <p class="text-xs text-slate-600">692 points</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Main Feed -->
+            <div class="lg:col-span-2">
+                <!-- Create Post -->
+                <div class="maritime-card p-6 mb-6">
+                    <div class="flex items-center space-x-4">
+                        <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=40&h=40&fit=crop&crop=face" alt="Current User" class="w-10 h-10 rounded-full object-cover" />
+                        <div class="flex-1">
+                            <button class="w-full text-left px-4 py-3 bg-slate-50 text-slate-600 rounded-lg hover:bg-slate-100 transition-maritime" id="create-post-btn">Share your latest catch or fishing tip...</button>
+                        </div>
+                        <button class="maritime-button-primary px-4 py-3">
+                            <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Feed Posts -->
+                <div class="space-y-6">
+                    <!-- Catch Report Post -->
+                    <article class="maritime-card p-6 hover:shadow-underwater transition-maritime">
+                        <div class="flex items-center space-x-3 mb-4">
+                            <img src="https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?w=40&h=40&fit=crop&crop=face" alt="Mike Johnson" class="w-10 h-10 rounded-full object-cover" />
+                            <div class="flex-1">
+                                <div class="flex items-center space-x-2">
+                                    <h3 class="font-semibold text-slate-900">Mike Johnson</h3>
+                                    <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-success-100 text-success-800">Pro Angler</span>
+                                </div>
+                                <div class="flex items-center space-x-2 text-sm text-slate-600">
+                                    <span>2 hours ago</span>
+                                    <span>•</span>
+                                    <div class="flex items-center space-x-1">
+                                        <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                                        </svg>
+                                        <span>Lake Tahoe, CA</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="text-slate-400 hover:text-slate-600">
+                                <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zM13 12a1 1 0 11-2 0 1 1 0 012 0zM20 12a1 1 0 11-2 0 1 1 0 012 0z"/>
+                                </svg>
+                            </button>
+                        </div>
+
+                        <div class="mb-4">
+                            <p class="text-slate-700 mb-3">Just landed this beautiful 4.2lb Largemouth Bass! Perfect morning conditions with light wind and overcast skies. Used a spinnerbait near the fallen log structure on the north shore. 🎣</p>
+                            <div class="relative">
+                                <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=600&h=400&fit=crop&crop=center" alt="Large Bass Catch" class="w-full h-80 object-cover rounded-lg" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;" />
+                                <div class="absolute top-3 right-3 bg-black bg-opacity-50 text-white px-2 py-1 rounded text-sm">
+                                    AI: Largemouth Bass (98% confidence)
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Catch Details -->
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4 p-4 bg-slate-50 rounded-lg">
+                            <div class="text-center">
+                                <div class="text-lg font-semibold text-slate-900">4.2 lbs</div>
+                                <div class="text-sm text-slate-600">Weight</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-lg font-semibold text-slate-900">18"</div>
+                                <div class="text-sm text-slate-600">Length</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-lg font-semibold text-slate-900">Spinnerbait</div>
+                                <div class="text-sm text-slate-600">Lure</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-lg font-semibold text-slate-900">6:30 AM</div>
+                                <div class="text-sm text-slate-600">Time</div>
+                            </div>
+                        </div>
+
+                        <!-- Engagement Actions -->
+                        <div class="flex items-center justify-between pt-4 border-t border-slate-200">
+                            <div class="flex items-center space-x-6">
+                                <button class="flex items-center space-x-2 text-slate-600 hover:text-primary transition-maritime">
+                                    <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+                                    </svg>
+                                    <span class="text-sm font-medium">24</span>
+                                </button>
+                                <button class="flex items-center space-x-2 text-slate-600 hover:text-primary transition-maritime">
+                                    <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+                                    </svg>
+                                    <span class="text-sm font-medium">8</span>
+                                </button>
+                                <button class="flex items-center space-x-2 text-slate-600 hover:text-primary transition-maritime">
+                                    <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.367 2.684 3 3 0 00-5.367-2.684z"/>
+                                    </svg>
+                                    <span class="text-sm font-medium">Share</span>
+                                </button>
+                            </div>
+                            <button class="text-slate-400 hover:text-slate-600">
+                                <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </article>
+
+                    <!-- Route Share Post -->
+                    <article class="maritime-card p-6 hover:shadow-underwater transition-maritime">
+                        <div class="flex items-center space-x-3 mb-4">
+                            <img src="https://images.pixabay.com/photo/2016/11/21/12/42/beard-1845166_1280.jpg?w=40&h=40&fit=crop&crop=face" alt="Sarah Chen" class="w-10 h-10 rounded-full object-cover" />
+                            <div class="flex-1">
+                                <div class="flex items-center space-x-2">
+                                    <h3 class="font-semibold text-slate-900">Sarah Chen</h3>
+                                    <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-primary-100 text-primary">Guide</span>
+                                </div>
+                                <div class="flex items-center space-x-2 text-sm text-slate-600">
+                                    <span>4 hours ago</span>
+                                    <span>•</span>
+                                    <div class="flex items-center space-x-1">
+                                        <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-1.447-.894L15 4m0 13V4m-6 3l6-3"/>
+                                        </svg>
+                                        <span>Shared Route</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <h4 class="text-lg font-semibold text-slate-900 mb-2">Colorado River Trout Circuit</h4>
+                            <p class="text-slate-700 mb-3">Perfect 6-hour route for rainbow trout. Hit 4 proven spots with 85% success rate. Best during early morning hours. Fuel efficient with scenic views! 🌊</p>
+                            <div class="relative">
+                                <img src="https://images.pexels.com/photos/1123982/pexels-photo-1123982.jpeg?w=600&h=300&fit=crop&crop=center" alt="Route Map" class="w-full h-48 object-cover rounded-lg" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1584824486509-112e4181ff6b?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'; this.onerror=null;" />
+                                <div class="absolute inset-0 bg-black bg-opacity-20 rounded-lg flex items-center justify-center">
+                                    <div class="text-white text-center">
+                                        <svg class="h-12 w-12 mx-auto mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-1.447-.894L15 4m0 13V4m-6 3l6-3"/>
+                                        </svg>
+                                        <p class="font-medium">View Route Details</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Route Stats -->
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4 p-4 bg-slate-50 rounded-lg">
+                            <div class="text-center">
+                                <div class="text-lg font-semibold text-slate-900">6 hrs</div>
+                                <div class="text-sm text-slate-600">Duration</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-lg font-semibold text-slate-900">4</div>
+                                <div class="text-sm text-slate-600">Hotspots</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-lg font-semibold text-slate-900">85%</div>
+                                <div class="text-sm text-slate-600">Success Rate</div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-lg font-semibold text-slate-900">$45</div>
+                                <div class="text-sm text-slate-600">Fuel Cost</div>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center justify-between pt-4 border-t border-slate-200">
+                            <div class="flex items-center space-x-6">
+                                <button class="flex items-center space-x-2 text-slate-600 hover:text-primary transition-maritime">
+                                    <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+                                    </svg>
+                                    <span class="text-sm font-medium">18</span>
+                                </button>
+                                <button class="flex items-center space-x-2 text-slate-600 hover:text-primary transition-maritime">
+                                    <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+                                    </svg>
+                                    <span class="text-sm font-medium">5</span>
+                                </button>
+                                <a href="route_planner_optimization.html" class="maritime-button-secondary px-4 py-2 text-sm">Use Route</a>
+                            </div>
+                            <button class="text-slate-400 hover:text-slate-600">
+                                <svg class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </article>
+
+                    <!-- Tournament Announcement -->
+                    <article class="maritime-card p-6 hover:shadow-underwater transition-maritime border-l-4 border-accent">
+                        <div class="flex items-center space-x-3 mb-4">
+                            <div class="w-10 h-10 bg-accent-100 rounded-full flex items-center justify-center">
+                                <svg class="h-5 w-5 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/>
+                                </svg>
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex items-center space-x-2">
+                                    <h3 class="font-semibold text-slate-900">Bay Area Anglers</h3>
+                                    <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-accent-100 text-accent-800">Tournament</span>
+                                </div>
+                                <div class="flex items-center space-x-2 text-sm text-slate-600">
+                                    <span>6 hours ago</span>
+                                    <span>•</span>
+                                    <span>Pinned Post</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="mb-4">
+                            <h4 class="text-lg font-semibold text-slate-900 mb-2">🏆 Summer Bass Tournament 2025</h4>
+                            <p class="text-slate-700 mb-3">Join us for the biggest bass tournament of the year! Registration now open. $10,000 prize pool with categories for all skill levels. Early bird discount ends July 20th.</p>
+                            <div class="bg-accent-50 p-4 rounded-lg">
+                                <div class="grid grid-cols-2 gap-4 text-sm">
+                                    <div>
+                                        <span class="font-medium text-slate-700">Date:</span>
+                                        <span class="text-slate-900 ml-2">August 15-16, 2025</span>
+                                    </div>
+                                    <div>
+                                        <span class="font-medium text-slate-700">Entry Fee:</span>
+                                        <span class="text-slate-900 ml-2">$75 (Early Bird: $60)</span>
+                                    </div>
+                                    <div>
+                                        <span class="font-medium text-slate-700">Location:</span>
+                                        <span class="text-slate-900 ml-2">Lake Tahoe</span>
+                                    </div>
+                                    <div>
+                                        <span class="font-medium text-slate-700">Registered:</span>
+                                        <span class="text-slate-900 ml-2">127/200 anglers</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center justify-between pt-4 border-t border-slate-200">
+                            <div class="flex items-center space-x-4">
+                                <button class="maritime-button-accent px-4 py-2 text-sm">Register Now</button>
+                                <button class="text-primary font-medium text-sm hover:text-primary-700 transition-maritime">Learn More</button>
+                            </div>
+                            <div class="flex items-center space-x-2 text-sm text-slate-600">
+                                <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"/>
+                                </svg>
+                                <span>127 interested</span>
+                            </div>
+                        </div>
+                    </article>
+
+                    <!-- Load More -->
+                    <div class="text-center py-8">
+                        <button class="maritime-button-secondary">Load More Posts</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right Sidebar - Trending & Suggestions -->
+            <aside class="lg:col-span-1">
+                <!-- Trending Topics -->
+                <div class="maritime-card p-6 mb-6">
+                    <h3 class="text-lg font-semibold text-slate-900 mb-4">Trending Topics</h3>
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm font-medium text-slate-700">#BassSeasonOpener</span>
+                            <span class="text-xs text-slate-500">2.4k posts</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm font-medium text-slate-700">#TroutTips</span>
+                            <span class="text-xs text-slate-500">1.8k posts</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm font-medium text-slate-700">#WeatherAlert</span>
+                            <span class="text-xs text-slate-500">892 posts</span>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm font-medium text-slate-700">#GearReview</span>
+                            <span class="text-xs text-slate-500">654 posts</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Suggested Follows -->
+                <div class="maritime-card p-6 mb-6">
+                    <h3 class="text-lg font-semibold text-slate-900 mb-4">Suggested Follows</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center space-x-3">
+                            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=40&h=40&fit=crop&crop=face" alt="Captain Rodriguez" class="w-10 h-10 rounded-full object-cover" />
+                            <div class="flex-1">
+                                <h4 class="font-medium text-slate-900">Captain Rodriguez</h4>
+                                <p class="text-sm text-slate-600">Deep sea fishing expert</p>
+                            </div>
+                            <button class="maritime-button-primary px-3 py-1 text-sm">Follow</button>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <img src="https://images.pixabay.com/photo/2016/11/18/19/07/happy-1836445_1280.jpg?w=40&h=40&fit=crop&crop=face" alt="Lisa Thompson" class="w-10 h-10 rounded-full object-cover" />
+                            <div class="flex-1">
+                                <h4 class="font-medium text-slate-900">Lisa Thompson</h4>
+                                <p class="text-sm text-slate-600">Fly fishing instructor</p>
+                            </div>
+                            <button class="maritime-button-primary px-3 py-1 text-sm">Follow</button>
+                        </div>
+                        <div class="flex items-center space-x-3">
+                            <img src="https://images.pexels.com/photos/1043471/pexels-photo-1043471.jpeg?w=40&h=40&fit=crop&crop=face" alt="Mark Wilson" class="w-10 h-10 rounded-full object-cover" />
+                            <div class="flex-1">
+                                <h4 class="font-medium text-slate-900">Mark Wilson</h4>
+                                <p class="text-sm text-slate-600">Tournament champion</p>
+                            </div>
+                            <button class="maritime-button-primary px-3 py-1 text-sm">Follow</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Achievements -->
+                <div class="maritime-card p-6">
+                    <h3 class="text-lg font-semibold text-slate-900 mb-4">Recent Achievements</h3>
+                    <div class="space-y-3">
+                        <div class="flex items-center space-x-3 p-3 bg-success-50 rounded-lg">
+                            <div class="w-8 h-8 bg-success-500 rounded-full flex items-center justify-center">
+                                <svg class="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4 class="font-medium text-slate-900">First Catch</h4>
+                                <p class="text-sm text-slate-600">Shared your first catch report</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-3 p-3 bg-primary-50 rounded-lg">
+                            <div class="w-8 h-8 bg-primary rounded-full flex items-center justify-center">
+                                <svg class="h-4 w-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h4 class="font-medium text-slate-900">Community Helper</h4>
+                                <p class="text-sm text-slate-600">Helped 10 fellow anglers</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <!-- Share Catch Modal -->
+    <div class="fixed inset-0 bg-black bg-opacity-50 z-50 hidden" id="share-catch-modal">
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="maritime-modal w-full max-w-2xl p-6">
+                <div class="flex items-center justify-between mb-6">
+                    <h2 class="text-xl font-semibold text-slate-900">Share Your Catch</h2>
+                    <button class="text-slate-400 hover:text-slate-600" id="close-modal">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                        </svg>
+                    </button>
+                </div>
+
+                <form class="space-y-6">
+                    <!-- Photo Upload -->
+                    <div>
+                        <label class="block text-sm font-medium text-slate-700 mb-2">Photo</label>
+                        <div class="border-2 border-dashed border-slate-300 rounded-lg p-8 text-center hover:border-primary transition-maritime">
+                            <svg class="h-12 w-12 text-slate-400 mx-auto mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/>
+                            </svg>
+                            <p class="text-slate-600">Click to upload or drag and drop</p>
+                            <p class="text-sm text-slate-500 mt-1">PNG, JPG up to 10MB</p>
+                        </div>
+                    </div>
+
+                    <!-- Description -->
+                    <div>
+                        <label class="block text-sm font-medium text-slate-700 mb-2">Description</label>
+                        <textarea class="maritime-input h-24" placeholder="Tell us about your catch..."></textarea>
+                    </div>
+
+                    <!-- Catch Details -->
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-2">Species</label>
+                            <select class="maritime-input">
+                                <option>Select species...</option>
+                                <option>Largemouth Bass</option>
+                                <option>Rainbow Trout</option>
+                                <option>Chinook Salmon</option>
+                                <option>Striped Bass</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-2">Weight (lbs)</label>
+                            <input type="number" class="maritime-input" placeholder="0.0" step="0.1" />
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-2">Length (inches)</label>
+                            <input type="number" class="maritime-input" placeholder="0" />
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-slate-700 mb-2">Lure/Bait</label>
+                            <input type="text" class="maritime-input" placeholder="e.g., Spinnerbait" />
+                        </div>
+                    </div>
+
+                    <!-- Location -->
+                    <div>
+                        <label class="block text-sm font-medium text-slate-700 mb-2">Location</label>
+                        <input type="text" class="maritime-input" placeholder="e.g., Lake Tahoe, CA" />
+                    </div>
+
+                    <!-- Actions -->
+                    <div class="flex items-center justify-end space-x-4 pt-6 border-t border-slate-200">
+                        <button type="button" class="px-6 py-3 text-slate-600 hover:text-slate-800 transition-maritime" id="cancel-share">Cancel</button>
+                        <button type="submit" class="maritime-button-primary">Share Catch</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-white py-8 mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <p class="text-slate-400">© 2025 Fishing Route Navigator. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-button').addEventListener('click', function() {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+
+        // Share catch modal
+        const shareCatchBtns = document.querySelectorAll('#share-catch-btn, #mobile-share-catch-btn, #create-post-btn');
+        const shareCatchModal = document.getElementById('share-catch-modal');
+        const closeModal = document.getElementById('close-modal');
+        const cancelShare = document.getElementById('cancel-share');
+
+        shareCatchBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                shareCatchModal.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+            });
+        });
+
+        [closeModal, cancelShare].forEach(btn => {
+            btn.addEventListener('click', function() {
+                shareCatchModal.classList.add('hidden');
+                document.body.style.overflow = 'auto';
+            });
+        });
+
+        // Close modal on backdrop click
+        shareCatchModal.addEventListener('click', function(e) {
+            if (e.target === shareCatchModal) {
+                shareCatchModal.classList.add('hidden');
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // Like button interactions
+        document.querySelectorAll('button').forEach(button => {
+            if (button.innerHTML.includes('M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z')) {
+                button.addEventListener('click', function() {
+                    const svg = this.querySelector('svg');
+                    const count = this.querySelector('span');
+                    const currentCount = parseInt(count.textContent);
+                    
+                    if (svg.getAttribute('fill') === 'none') {
+                        svg.setAttribute('fill', 'currentColor');
+                        this.classList.add('text-red-500');
+                        count.textContent = currentCount + 1;
+                    } else {
+                        svg.setAttribute('fill', 'none');
+                        this.classList.remove('text-red-500');
+                        count.textContent = currentCount - 1;
+                    }
+                });
+            }
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+<script id="dhws-dataInjector" src="../public/dhws-data-injector.js"></script>
+</body>
+</html>
