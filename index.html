@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>FishingPro - Your Ultimate Fishing Companion</title>
+    <link rel="stylesheet" href="css/main.css" />
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        
+        .loading-container {
+            text-align: center;
+            max-width: 500px;
+            padding: 40px;
+        }
+        
+        .logo {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #4fc3f7;
+        }
+        
+        .tagline {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+        
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-top: 4px solid #4fc3f7;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .loading-text {
+            font-size: 1rem;
+            opacity: 0.8;
+        }
+        
+        .fish-icon {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            animation: float 2s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+    </style>
+<script type="module" src="https://static.rocket.new/rocket-web.js?_cfg=https%3A%2F%2Ffishingro2722back.builtwithrocket.new&_be=https%3A%2F%2Fapplication.rocket.new&_v=0.1.5"></script>
+</head>
+<body>
+    <div class="loading-container">
+        <div class="fish-icon">🎣</div>
+        <div class="logo">FishingPro</div>
+        <div class="tagline">Your Ultimate Fishing Companion</div>
+        <div class="loading-text">Loading your fishing dashboard...</div>
+        <!-- Removed login link as per request -->
+        <nav style="margin-top: 20px; text-align: center;">
+            <ul>
+           <li><a href="pages/interactive_map_dashboard_homepage.html" style="color: #4fc3f7; font-weight: bold; margin: 0 10px;">EXPLORE..</a></li>
+            </ul>
+            
+        </nav>
+    </div>
+
+    <script>
+        // Automatically open all pages in new tabs when index.html loads
+        window.addEventListener('load', () => {
+            const pages = [
+                'pages/login.html',
+                'pages/community_feed_social_platform.html',
+                'pages/equipment_hub_gear_optimizer.html',
+                'pages/interactive_map_dashboard_homepage.html',
+                'pages/learning_center_fishing_education.html',
+                'pages/route_planner_optimization.html',
+                'pages/weather_marine_conditions_center.html'
+            ];
+            pages.forEach(page => {
+                window.open(page, '_blank');
+            });
+        });
+    </script>
+<script id="dhws-dataInjector" src="/public/dhws-data-injector.js"></script>
+</body>
+</html>
